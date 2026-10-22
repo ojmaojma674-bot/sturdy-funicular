@@ -6,7 +6,23 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class ChatViewModel : ViewModel() {
-    private val _messages = MutableStateFlow<List<ChatMessage>>(emptyList())
+    private val _messages = MutableStateFlow<List<ChatMessage>>(listOf(
+        ChatMessage(
+            text = "Astra is online and ready to coordinate the team.",
+            sender = "Astra",
+            isUser = false
+        ),
+        ChatMessage(
+            text = "Orion is checking code quality and system stability.",
+            sender = "Orion",
+            isUser = false
+        ),
+        ChatMessage(
+            text = "I want a premium AI assistant app with a proper dashboard.",
+            sender = "You",
+            isUser = true
+        )
+    ))
     val messages: StateFlow<List<ChatMessage>> = _messages
 
     fun sendMessage(text: String, agentName: String = "Astra") {
@@ -22,16 +38,16 @@ class ChatViewModel : ViewModel() {
     private fun buildAgentResponse(agentName: String, userInput: String): String {
         val normalizedInput = userInput.trim()
         val base = when (agentName) {
-            "Nova" -> "Nova is gathering the latest context and cross-checking facts before answering."
-            "Orion" -> "Orion is mapping this into a clean technical plan and prioritizing practical execution."
-            "Lyra" -> "Lyra is shaping this into a polished, human-friendly response with strong clarity."
-            "Sable" -> "Sable is reviewing risks, edge cases, and quality concerns before finalizing the answer."
-            "Kite" -> "Kite is organizing this into a structured roadmap and next-step sequence."
-            "Quill" -> "Quill is analyzing patterns and extracting the key insight behind the request."
-            "Echo" -> "Echo is responding with empathy, tone, and conversational clarity."
-            else -> "Astra is coordinating the team and giving you a clear, balanced answer."
+            "Nova" -> "Nova is gathering the latest context and checking reliability before responding."
+            "Orion" -> "Orion is mapping this into a clean technical plan with practical execution priorities."
+            "Lyra" -> "Lyra is shaping this into a polished, human-friendly response."
+            "Sable" -> "Sable is reviewing risks, quality concerns, and edge cases."
+            "Kite" -> "Kite is organizing the work into a clear roadmap and next steps."
+            "Quill" -> "Quill is extracting the most valuable insight and patterns from your request."
+            "Echo" -> "Echo is replying with empathy and conversation-first clarity."
+            else -> "Astra is coordinating the team and delivering a clear, balanced answer."
         }
 
-        return "$base You asked: \"$normalizedInput\". I’ve routed this through the ${agentName} workflow and kept the answer direct, useful, and human-centered."
+        return "$base You asked: \"$normalizedInput\". I’ve routed this through the ${agentName} workflow and kept it useful, direct, and human-centered."
     }
 }
