@@ -69,12 +69,12 @@ fun ChatScreen(
                     )
                     Text(
                         text = "Team of specialist agents",
-                        color = Color(0xFFB6B6B6)
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
                 Button(
                     onClick = onOpenAgents,
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB31217))
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
                     Text(text = selectedAgent)
                 }
@@ -84,12 +84,12 @@ fun ChatScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(18.dp))
-                    .background(Color(0xFF121212))
+                    .background(MaterialTheme.colorScheme.surfaceVariant)
                     .padding(14.dp)
             ) {
                 Text(
                     text = "Agent active: $selectedAgent",
-                    color = Color(0xFFB9F1FF),
+                    color = MaterialTheme.colorScheme.secondary,
                     fontWeight = FontWeight.SemiBold
                 )
             }
@@ -113,7 +113,8 @@ fun ChatScreen(
                     onValueChange = { draft = it },
                     modifier = Modifier.weight(1f),
                     placeholder = { Text("Ask Astra, Orion, Nova...") },
-                    shape = RoundedCornerShape(16.dp)
+                    shape = RoundedCornerShape(16.dp),
+                    textStyle = androidx.compose.ui.text.TextStyle(color = MaterialTheme.colorScheme.onSurface)
                 )
 
                 Button(
@@ -122,7 +123,7 @@ fun ChatScreen(
                         draft = ""
                     },
                     enabled = draft.isNotBlank(),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB31217))
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
                     Icon(Icons.Default.Send, contentDescription = "Send")
                 }
@@ -132,9 +133,9 @@ fun ChatScreen(
 }
 
 @Composable
-private fun MessageBubble(message: ChatMessage) {
-    val bubbleColor = if (message.isUser) Color(0xFFB31217) else Color(0xFF1A1A1A)
-    val textColor = if (message.isUser) Color.White else Color(0xFFEAEAEA)
+private fun MessageBubble(message: com.vhotiex.model.ChatMessage) {
+    val bubbleColor = if (message.isUser) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
+    val textColor = if (message.isUser) Color.White else MaterialTheme.colorScheme.onSurface
     val alignment = if (message.isUser) Alignment.End else Alignment.Start
 
     Box(
@@ -149,7 +150,7 @@ private fun MessageBubble(message: ChatMessage) {
         ) {
             Text(
                 text = if (message.isUser) "You" else message.sender,
-                color = if (message.isUser) Color(0xFFE8C9C9) else Color(0xFF9EE5FF),
+                color = if (message.isUser) Color(0xFFE8C9C9) else MaterialTheme.colorScheme.secondary,
                 fontWeight = FontWeight.SemiBold
             )
             Text(

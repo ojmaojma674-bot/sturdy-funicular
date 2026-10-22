@@ -69,10 +69,10 @@ fun AgentSelectorScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(16.dp))
-                            .background(if (isSelected) Color(0xFF3A0E12) else Color(0xFF111111))
+                            .background(if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.18f) else MaterialTheme.colorScheme.surfaceVariant)
                             .border(
                                 width = 1.dp,
-                                color = if (isSelected) Color(0xFFB31217) else Color(0xFF2A2A2A),
+                                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
                                 shape = RoundedCornerShape(16.dp)
                             )
                             .clickable {
@@ -94,17 +94,17 @@ fun AgentSelectorScreen(
                                 )
                                 Text(
                                     text = agent.role,
-                                    color = Color(0xFFB9F1FF)
+                                    color = MaterialTheme.colorScheme.secondary
                                 )
                             }
                             Text(
                                 text = "Tone: ${agent.tone}",
-                                color = Color(0xFFDDDDDD),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.padding(top = 8.dp)
                             )
                             Text(
                                 text = "Specialties: ${agent.specialties.joinToString(", ")}",
-                                color = Color(0xFFB6B6B6),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.padding(top = 4.dp)
                             )
                         }
