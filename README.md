@@ -33,7 +33,7 @@ The product aims to combine premium visuals with real productivity. It should fe
 - Always keep product documentation aligned with the app’s real state
 
 ## Reference Context
-This repository acts as the source of truth for the product story, architecture, rules, and roadmap. Any future work should be consistent with this product identity and the technical direction in the other project docs.
+This repository acts as the source of truth for the product story, architecture, rules, and roadmap. Any future work should be consistent with this product identity and the technical direction in the repository.
 
 ## Next Best Actions
 - Confirm UI skeleton and theme implementation
@@ -41,3 +41,27 @@ This repository acts as the source of truth for the product story, architecture,
 - Integrate an AI provider abstraction
 - Validate voice flow and session memory
 - Review with product and engineering stakeholders
+
+## Advanced Product Vision
+The long-term direction for VHOTIEX AI is to evolve from a stylish assistant app into a holographic AI command center with real-time voice intelligence, multi-agent orchestration, and self-healing security behaviors.
+
+### Strategic direction
+- Transform the app into a cinematic, futuristic holographic dashboard inspired by premium sci-fi interfaces.
+- Prioritize natural voice-first interaction: wake word, live transcription, agent routing, and speech output.
+- Keep the product modular so coding, research, planning, review, and optimization agents can evolve independently.
+- Add a security and recovery layer that can detect anomalies, protect user data, and restore known-good system states when needed.
+
+### Recommended experience pillars
+- Holographic UI: floating 3D panels, orbiting agent rings, HUD overlays, black-red visual system, cyan/silver accent lighting.
+- Voice-first UX: wake word activation, live speech-to-text, contextual intent routing, AI voice responses using TTS.
+- Agent intelligence: coding, research, planning, analysis, review, and defense/recovery agents working from shared memory.
+- Trust and resilience: health checks, anomaly detection, safe rollback, sandboxing, and verified recovery flows.
+
+### This repository is moving toward
+- Android-first holographic experience
+- AI assistant + multi-agent workflows
+- voice and text multimodal interaction
+- memory-driven personalization
+- self-healing, security-aware runtime
+
+See [ADVANCED_HOLOGRAPHIC_ARCHITECTURE.md](ADVANCED_HOLOGRAPHIC_ARCHITECTURE.md) for the full advanced system design.
