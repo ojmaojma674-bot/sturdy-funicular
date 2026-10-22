@@ -1,8 +1,12 @@
-from fastapi import FastAPI
+from fastapi import APIRouter
 
-app = FastAPI(title="Vhotiex AI API", version="0.1.0")
+router = APIRouter(prefix="/chat", tags=["chat"])
 
 
-@app.get("/health")
-def health_check() -> dict:
-    return {"status": "ok", "service": "vhotiex-ai"}
+@router.post("/")
+def chat_post(payload: dict) -> dict:
+    return {
+        "status": "accepted",
+        "message": payload.get("message", ""),
+        "response": "This is the starter message response for the VHOTIEX AI backend."
+    }

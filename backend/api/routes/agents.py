@@ -3,7 +3,7 @@ from fastapi import APIRouter
 router = APIRouter(prefix="/agents", tags=["agents"])
 
 
-@router.get("/types")
+@router.get("/")
 def get_agent_types() -> dict:
     return {
         "agents": [
