@@ -5,10 +5,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class AgentViewModel : ViewModel() {
-    private val _selectedAgent = MutableStateFlow("coding")
+    private val _selectedAgent = MutableStateFlow("Astra")
     val selectedAgent: StateFlow<String> = _selectedAgent
 
     fun selectAgent(agent: String) {
-        _selectedAgent.value = agent
+        if (agent.isNotBlank()) {
+            _selectedAgent.value = agent
+        }
     }
 }

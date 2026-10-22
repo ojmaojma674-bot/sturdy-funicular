@@ -1,9 +1,9 @@
 from dataclasses import dataclass, field
-from typing import List, Dict, Any
+from typing import Any, Dict, List, Optional
 
 
 @dataclass
-class AgentPersonality:
+class AgentProfile:
     name: str
     role: str
     tone: str
@@ -29,8 +29,8 @@ class AgentPersonality:
 class AgentSwarm:
     def __init__(self, total_agents: int = 1_000_000):
         self.total_agents = total_agents
-        self.archetypes = [
-            AgentPersonality(
+        self.agents = [
+            AgentProfile(
                 name="Astra",
                 role="Coordinator",
                 tone="calm and visionary",
@@ -40,7 +40,7 @@ class AgentSwarm:
                 specialties=["planning", "alignment", "handoff"],
                 collaborators=["Nova", "Lyra", "Orion"],
             ),
-            AgentPersonality(
+            AgentProfile(
                 name="Nova",
                 role="Researcher",
                 tone="curious and precise",
@@ -50,7 +50,7 @@ class AgentSwarm:
                 specialties=["research", "analysis", "fact-checking"],
                 collaborators=["Astra", "Quill", "Echo"],
             ),
-            AgentPersonality(
+            AgentProfile(
                 name="Lyra",
                 role="Composer",
                 tone="creative and warm",
@@ -60,7 +60,7 @@ class AgentSwarm:
                 specialties=["writing", "storytelling", "UX copy"],
                 collaborators=["Astra", "Sable", "Kite"],
             ),
-            AgentPersonality(
+            AgentProfile(
                 name="Orion",
                 role="Engineer",
                 tone="structured and effective",
@@ -70,7 +70,7 @@ class AgentSwarm:
                 specialties=["code", "debugging", "systems"],
                 collaborators=["Nova", "Echo", "Astra"],
             ),
-            AgentPersonality(
+            AgentProfile(
                 name="Echo",
                 role="Communicator",
                 tone="empathetic and intuitive",
@@ -80,7 +80,7 @@ class AgentSwarm:
                 specialties=["conversation", "translation", "support"],
                 collaborators=["Lyra", "Nova", "Sable"],
             ),
-            AgentPersonality(
+            AgentProfile(
                 name="Sable",
                 role="Reviewer",
                 tone="honest and sharp",
@@ -90,7 +90,7 @@ class AgentSwarm:
                 specialties=["quality assurance", "risk review", "policies"],
                 collaborators=["Astra", "Orion", "Echo"],
             ),
-            AgentPersonality(
+            AgentProfile(
                 name="Kite",
                 role="Planner",
                 tone="optimistic and strategic",
@@ -100,7 +100,7 @@ class AgentSwarm:
                 specialties=["roadmaps", "priorities", "execution"],
                 collaborators=["Astra", "Orion", "Lyra"],
             ),
-            AgentPersonality(
+            AgentProfile(
                 name="Quill",
                 role="Analyst",
                 tone="thoughtful and detail-rich",
@@ -112,20 +112,19 @@ class AgentSwarm:
             ),
         ]
 
+    def profile_for(self, name: str) -> Optional[AgentProfile]:
+        for agent in self.agents:
+            if agent.name.lower() == name.lower():
+                return agent
+        return None
+
+    def as_list(self) -> List[Dict[str, Any]]:
+        return [agent.to_dict() for agent in self.agents]
+
     def summary(self) -> Dict[str, Any]:
         return {
             "total_agents": self.total_agents,
-            "agent_count_by_role": {
-                agent.role: sum(1 for _ in self.archetypes if _ is not None and _.role == agent.role)
-                for agent in self.archetypes
-            },
-            "featured_agents": [agent.to_dict() for agent in self.archetypes],
-            "human_alignment": {
-                "empathy_first": True,
-                "clear_identity": True,
-                "context_memory": True,
-                "cooperative_mode": True,
-            },
+            "featured_agents": self.as_list(),
             "relationship_model": [
                 {"from": "Astra", "to": "Orion", "relationship": "coordination"},
                 {"from": "Echo", "to": "Lyra", "relationship": "empathy_to_expression"},
@@ -142,29 +141,39 @@ class AgentOrchestrator:
 
     def decide_agent(self, user_input: str) -> str:
         text = user_input.lower()
-        if any(keyword in text for keyword in ["code", "bug", "fix", "refactor", "test"]):
-            return "coding"
-        if any(keyword in text for keyword in ["research", "compare", "find", "latest", "market"]):
-            return "research"
-        if any(keyword in text for keyword in ["plan", "roadmap", "timeline", "strategy"]):
-            return "planning"
-        if any(keyword in text for keyword in ["review", "quality", "audit", "check"]):
-            return "review"
-        if any(keyword in text for keyword in ["voice", "talk", "speak", "listen"]):
-            return "voice"
-        if any(keyword in text for keyword in ["hello", "hi", "hey", "how are you", "who are you"]):
-            return "conversation"
-        return "default"
+
+        if any(keyword in text for keyword in ["code", "bug", "fix", "refactor", "test", "build"]):
+            return "Orion"
+        if any(keyword in text for keyword in ["research", "compare", "find", "latest", "market", "trend"]):
+            return "Nova"
+        if any(keyword in text for keyword in ["plan", "roadmap", "timeline", "strategy", "launch"]):
+            return "Kite"
+        if any(keyword in text for keyword in ["review", "quality", "audit", "check", "risk"]):
+            return "Sable"
+        if any(keyword in text for keyword in ["write", "story", "content", "message", "copy"]):
+            return "Lyra"
+        if any(keyword in text for keyword in ["voice", "talk", "speak", "listen", "hello", "hi"]):
+            return "Echo"
+        if any(keyword in text for keyword in ["data", "pattern", "insight", "analysis"]):
+            return "Quill"
+
+        return "Astra"
 
     def build_response_plan(self, user_input: str) -> dict:
-        agent = self.decide_agent(user_input)
-        model = self.model_router.route(agent)
+        agent_name = self.decide_agent(user_input)
+        model = self.model_router.route(agent_name)
+        profile = self.swarm.profile_for(agent_name)
         return {
-            "agent": agent,
+            "agent": agent_name,
+            "role": profile.role if profile else "General",
             "model": model,
             "user_input": user_input,
             "swarm_summary": self.swarm.summary(),
+            "personality": profile.to_dict() if profile else {},
         }
 
     def get_swarm_summary(self) -> dict:
         return self.swarm.summary()
+
+
+__all__ = ["AgentOrchestrator", "AgentProfile", "AgentSwarm"]
