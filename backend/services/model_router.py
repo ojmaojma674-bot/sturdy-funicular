@@ -1,19 +1,26 @@
-"""Simple in-memory history tracking for chat interactions."""
+"""Simple model routing for the VHOTIEX AI backend."""
+
+from __future__ import annotations
 
 
-class MemoryService:
-    """Store recent chat context for short-lived conversational memory."""
+class ModelRouter:
+    """Map an agent name to a model selection."""
 
-    def __init__(self):
-        self.context = []
+    _model_map = {
+        "Astra": "gpt-4o-mini",
+        "Nova": "gpt-4o-mini",
+        "Lyra": "gpt-4o-mini",
+        "Orion": "gpt-4o-mini",
+        "Echo": "gpt-4o-mini",
+        "Sable": "gpt-4o-mini",
+        "Kite": "gpt-4o-mini",
+        "Quill": "gpt-4o-mini",
+    }
 
-    def add_memory(self, user_input: str, response: str):
-        """Persist a user input and response pair in memory."""
-        self.context.append({
-            "user_input": user_input,
-            "response": response,
-        })
+    def route(self, agent_name: str) -> str:
+        """Return the default model for the named agent."""
+        return self._model_map.get(agent_name, "gpt-4o-mini")
 
-    def get_recent_context(self, limit: int = 5):
-        """Return the most recent memory entries, capped by the limit."""
-        return self.context[-limit:]
+    def available_models(self) -> list[str]:
+        """Return the currently supported model names."""
+        return sorted(set(self._model_map.values()))
