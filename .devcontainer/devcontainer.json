@@ -1,0 +1,33 @@
+{
+  "name": "vhotiex-ai",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "remoteUser": "vscode",
+  "containerEnv": {
+    "ANDROID_HOME": "/opt/android-sdk",
+    "ANDROID_SDK_ROOT": "/opt/android-sdk",
+    "JAVA_HOME": "/usr/lib/jvm/msopenjdk-current",
+    "PATH": "/opt/android-sdk/cmdline-tools/latest/bin:/opt/android-sdk/platform-tools:/opt/android-sdk/build-tools/34.0.0:${containerEnv:PATH}"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-androidstudio.android-dev-ext",
+        "ms-vscode.vscode-gradle",
+        "redhat.java",
+        "ms-python.python",
+        "dbaeumer.vscode-eslint",
+        "github.vscode-github-actions"
+      ],
+      "settings": {
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "gradle.nestedProjects": true,
+        "files.watcherExclude": {
+          "**/.git/objects/**": true,
+          "**/.git/subtree-cache/**": true,
+          "**/.gradle/**": true
+        }
+      }
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/postCreate.sh"
+}
