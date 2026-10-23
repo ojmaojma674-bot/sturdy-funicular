@@ -6,52 +6,145 @@
     <meta name="theme-color" content="#0b0b0f" />
     <meta
       name="description"
-      content="VHOTIEX AI installable web app package. Add to home screen and use like an app."
+      content="VHOTIEX AI — installable futuristic AI assistant web app"
     />
     <title>VHOTIEX AI</title>
     <link rel="manifest" href="./manifest.json" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="app-shell">
-      <div class="glow glow-one"></div>
-      <div class="glow glow-two"></div>
-
-      <section class="card">
-        <div class="brand-row">
-          <img src="./assets/icon-192.svg" alt="VHOTIEX AI logo" class="logo" />
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <img src="./assets/icon-192.svg" alt="VHOTIEX AI logo" />
           <div>
-            <p class="eyebrow">AI EXPERIENCE</p>
+            <span class="eyebrow">VHOTIEX</span>
+            <h2>AI Suite</h2>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-item active">Overview</button>
+          <button class="nav-item">Agents</button>
+          <button class="nav-item">Workspace</button>
+          <button class="nav-item">Memory</button>
+          <button class="nav-item">Settings</button>
+        </nav>
+
+        <div class="mini-card">
+          <p>System health</p>
+          <strong>Stable</strong>
+          <div class="progress"><span style="width: 88%"></span></div>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">AI COMMAND CENTER</p>
             <h1>VHOTIEX AI</h1>
           </div>
-        </div>
 
-        <p class="subtitle">
-          Futuristic AI assistant with installable web experience, smooth offline support,
-          and device-like behavior.
-        </p>
-
-        <div class="info-grid">
-          <div>
-            <span>Status</span>
-            <strong id="statusText">Ready</strong>
+          <div class="top-actions">
+            <span id="modeBadge" class="status-badge">Browser</span>
+            <button id="installButton" class="primary hidden">Install App</button>
           </div>
-          <div>
-            <span>Mode</span>
-            <strong id="modeText">Browser</strong>
-          </div>
-        </div>
+        </header>
 
-        <div class="actions">
-          <button id="installButton" class="primary" hidden>
-            Install App
-          </button>
-          <a class="secondary" href="https://github.com/ojmaojma674-bot" target="_blank" rel="noreferrer">
-            Open GitHub
-          </a>
-        </div>
-      </section>
-    </main>
+        <section class="hero-grid">
+          <div class="hero-card">
+            <div class="status-row">
+              <span class="live-dot"></span>
+              <span id="statusText">AI ready</span>
+            </div>
+
+            <h3>Multi-agent intelligence with holographic workflow</h3>
+            <p>
+              Research, code, planning, memory, and voice workflows connected in one
+              premium installable experience.
+            </p>
+
+            <div class="cta-row">
+              <button class="primary" id="quickPromptBtn">Start session</button>
+              <button class="ghost" id="simulateBtn">Run demo</button>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span>Agents</span>
+              <strong>08</strong>
+            </div>
+            <div class="stat-card">
+              <span>Latency</span>
+              <strong>124ms</strong>
+            </div>
+            <div class="stat-card">
+              <span>Memory</span>
+              <strong>92%</strong>
+            </div>
+            <div class="stat-card">
+              <span>Uptime</span>
+              <strong>99.9%</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="workspace-panel">
+          <div class="chat-window">
+            <div class="chat-header">
+              <div>
+                <span class="eyebrow">Session</span>
+                <h3>Agent Console</h3>
+              </div>
+              <button class="ghost small">Voice</button>
+            </div>
+
+            <div class="messages" id="messages">
+              <div class="message bot">
+                <p>Welcome back. I’m ready to assist with planning, coding, and analysis.</p>
+              </div>
+              <div class="message user">
+                <p>Build a clean installable web app package.</p>
+              </div>
+            </div>
+
+            <form class="composer" id="composerForm">
+              <input
+                id="promptInput"
+                type="text"
+                placeholder="Ask VHOTIEX AI..."
+                aria-label="Ask VHOTIEX AI"
+              />
+              <button type="submit" class="primary">Send</button>
+            </form>
+          </div>
+
+          <aside class="right-panel">
+            <div class="panel-card">
+              <span class="eyebrow">Live tasks</span>
+              <ul>
+                <li>Security review</li>
+                <li>Context memory sync</li>
+                <li>App packaging</li>
+              </ul>
+            </div>
+
+            <div class="panel-card">
+              <span class="eyebrow">Recommended</span>
+              <div class="recommendation">
+                <strong>PWA package</strong>
+                <small>Installable for desktop/mobile browsers</small>
+              </div>
+              <div class="recommendation">
+                <strong>APK wrapper</strong>
+                <small>Capacitor ready for Android build</small>
+              </div>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
 
     <script src="./app.js"></script>
   </body>
