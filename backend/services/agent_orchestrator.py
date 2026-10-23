@@ -1,179 +1,63 @@
-from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+"""API routes for chat requests and agent routing."""
+
+from fastapi import APIRouter
+
+from backend.services.agent_orchestrator import AgentOrchestrator
+from backend.services.model_router import ModelRouter
+
+router = APIRouter(prefix="/chat", tags=["chat"])
+
+orchestrator = AgentOrchestrator(ModelRouter())
+ALLOWED_AGENTS = {
+    "Astra",
+    "Nova",
+    "Lyra",
+    "Orion",
+    "Echo",
+    "Sable",
+    "Kite",
+    "Quill",
+}
 
 
-@dataclass
-class AgentProfile:
-    name: str
-    role: str
-    tone: str
-    energy: str
-    empathy: float
-    reliability: float
-    specialties: List[str] = field(default_factory=list)
-    collaborators: List[str] = field(default_factory=list)
+@router.post("/")
+def chat_post(payload: dict) -> dict:
+    """Route a chat payload to the best agent and return a response."""
+    user_message = str(payload.get("message", "")).strip()
+    selected_agent = str(payload.get("agent", "Astra")).strip() or "Astra"
 
-    def to_dict(self) -> Dict[str, Any]:
+    if not user_message:
         return {
-            "name": self.name,
-            "role": self.role,
-            "tone": self.tone,
-            "energy": self.energy,
-            "empathy": self.empathy,
-            "reliability": self.reliability,
-            "specialties": self.specialties,
-            "collaborators": self.collaborators,
+            "status": "empty",
+            "message": "",
+            "response": (
+                "Tell me what you want help with and I will route it to the best "
+                "agent."
+            ),
+            "agent": selected_agent,
         }
 
+    plan = orchestrator.build_response_plan(user_message)
+    agent_name = (
+        selected_agent
+        if selected_agent in ALLOWED_AGENTS
+        else plan["agent"]
+    )
+    profile = orchestrator.swarm.profile_for(agent_name)
 
-class AgentSwarm:
-    def __init__(self, total_agents: int = 1_000_000):
-        self.total_agents = total_agents
-        self.agents = [
-            AgentProfile(
-                name="Astra",
-                role="Coordinator",
-                tone="calm and visionary",
-                energy="steady",
-                empathy=0.93,
-                reliability=0.97,
-                specialties=["planning", "alignment", "handoff"],
-                collaborators=["Nova", "Lyra", "Orion"],
-            ),
-            AgentProfile(
-                name="Nova",
-                role="Researcher",
-                tone="curious and precise",
-                energy="high",
-                empathy=0.82,
-                reliability=0.9,
-                specialties=["research", "analysis", "fact-checking"],
-                collaborators=["Astra", "Quill", "Echo"],
-            ),
-            AgentProfile(
-                name="Lyra",
-                role="Composer",
-                tone="creative and warm",
-                energy="sparkling",
-                empathy=0.94,
-                reliability=0.88,
-                specialties=["writing", "storytelling", "UX copy"],
-                collaborators=["Astra", "Sable", "Kite"],
-            ),
-            AgentProfile(
-                name="Orion",
-                role="Engineer",
-                tone="structured and effective",
-                energy="focused",
-                empathy=0.76,
-                reliability=0.98,
-                specialties=["code", "debugging", "systems"],
-                collaborators=["Nova", "Echo", "Astra"],
-            ),
-            AgentProfile(
-                name="Echo",
-                role="Communicator",
-                tone="empathetic and intuitive",
-                energy="adaptive",
-                empathy=0.96,
-                reliability=0.9,
-                specialties=["conversation", "translation", "support"],
-                collaborators=["Lyra", "Nova", "Sable"],
-            ),
-            AgentProfile(
-                name="Sable",
-                role="Reviewer",
-                tone="honest and sharp",
-                energy="balanced",
-                empathy=0.8,
-                reliability=0.96,
-                specialties=["quality assurance", "risk review", "policies"],
-                collaborators=["Astra", "Orion", "Echo"],
-            ),
-            AgentProfile(
-                name="Kite",
-                role="Planner",
-                tone="optimistic and strategic",
-                energy="measured",
-                empathy=0.87,
-                reliability=0.94,
-                specialties=["roadmaps", "priorities", "execution"],
-                collaborators=["Astra", "Orion", "Lyra"],
-            ),
-            AgentProfile(
-                name="Quill",
-                role="Analyst",
-                tone="thoughtful and detail-rich",
-                energy="deep",
-                empathy=0.83,
-                reliability=0.92,
-                specialties=["data", "patterns", "insights"],
-                collaborators=["Nova", "Kite", "Sable"],
-            ),
-        ]
+    response_text = (
+        f"{agent_name} here. I am handling this in {profile.role if profile else 'team'} "
+        "mode. I will focus on "
+        f"{profile.specialties[0] if profile and profile.specialties else 'smart assistance'} "
+        "while keeping the response clear and human-friendly."
+    )
 
-    def profile_for(self, name: str) -> Optional[AgentProfile]:
-        for agent in self.agents:
-            if agent.name.lower() == name.lower():
-                return agent
-        return None
-
-    def as_list(self) -> List[Dict[str, Any]]:
-        return [agent.to_dict() for agent in self.agents]
-
-    def summary(self) -> Dict[str, Any]:
-        return {
-            "total_agents": self.total_agents,
-            "featured_agents": self.as_list(),
-            "relationship_model": [
-                {"from": "Astra", "to": "Orion", "relationship": "coordination"},
-                {"from": "Echo", "to": "Lyra", "relationship": "empathy_to_expression"},
-                {"from": "Nova", "to": "Quill", "relationship": "research_to_insight"},
-                {"from": "Sable", "to": "Kite", "relationship": "trust_and_review"},
-            ],
-        }
-
-
-class AgentOrchestrator:
-    def __init__(self, model_router):
-        self.model_router = model_router
-        self.swarm = AgentSwarm(total_agents=1_000_000)
-
-    def decide_agent(self, user_input: str) -> str:
-        text = user_input.lower()
-
-        if any(keyword in text for keyword in ["code", "bug", "fix", "refactor", "test", "build"]):
-            return "Orion"
-        if any(keyword in text for keyword in ["research", "compare", "find", "latest", "market", "trend"]):
-            return "Nova"
-        if any(keyword in text for keyword in ["plan", "roadmap", "timeline", "strategy", "launch"]):
-            return "Kite"
-        if any(keyword in text for keyword in ["review", "quality", "audit", "check", "risk"]):
-            return "Sable"
-        if any(keyword in text for keyword in ["write", "story", "content", "message", "copy"]):
-            return "Lyra"
-        if any(keyword in text for keyword in ["voice", "talk", "speak", "listen", "hello", "hi"]):
-            return "Echo"
-        if any(keyword in text for keyword in ["data", "pattern", "insight", "analysis"]):
-            return "Quill"
-
-        return "Astra"
-
-    def build_response_plan(self, user_input: str) -> dict:
-        agent_name = self.decide_agent(user_input)
-        model = self.model_router.route(agent_name)
-        profile = self.swarm.profile_for(agent_name)
-        return {
-            "agent": agent_name,
-            "role": profile.role if profile else "General",
-            "model": model,
-            "user_input": user_input,
-            "swarm_summary": self.swarm.summary(),
-            "personality": profile.to_dict() if profile else {},
-        }
-
-    def get_swarm_summary(self) -> dict:
-        return self.swarm.summary()
-
-
-__all__ = ["AgentOrchestrator", "AgentProfile", "AgentSwarm"]
+    return {
+        "status": "accepted",
+        "message": user_message,
+        "agent": agent_name,
+        "model": plan["model"],
+        "role": profile.role if profile else "General",
+        "response": response_text,
+        "personality": profile.to_dict() if profile else {},
+    }

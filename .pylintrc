@@ -1,6 +1,9 @@
 [MASTER]
 ignore=backup
 
+[FORMAT]
+max-line-length=120
+
 [MESSAGES CONTROL]
 disable=
     missing-module-docstring,

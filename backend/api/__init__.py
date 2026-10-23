@@ -1,1 +1,1 @@
-__init__.py
+"""Backend package marker for the VHOTIEX service."""

@@ -1,22 +1,19 @@
-class ModelRouter:
-    def __init__(self):
-        self.model_map = {
-            "Astra": "gpt-orchestrator",
-            "Nova": "gpt-research",
-            "Lyra": "gpt-creative",
-            "Orion": "gpt-code",
-            "Echo": "gpt-conversation",
-            "Sable": "gpt-review",
-            "Kite": "gpt-planning",
-            "Quill": "gpt-analysis",
-            "coding": "gpt-code",
-            "research": "gpt-research",
-            "analysis": "gpt-analysis",
-            "planning": "gpt-planning",
-            "review": "gpt-review",
-            "voice": "gpt-conversation",
-            "default": "gpt-fast",
-        }
+"""Simple in-memory history tracking for chat interactions."""
 
-    def route(self, agent_type: str) -> str:
-        return self.model_map.get(agent_type, self.model_map["default"])
+
+class MemoryService:
+    """Store recent chat context for short-lived conversational memory."""
+
+    def __init__(self):
+        self.context = []
+
+    def add_memory(self, user_input: str, response: str):
+        """Persist a user input and response pair in memory."""
+        self.context.append({
+            "user_input": user_input,
+            "response": response,
+        })
+
+    def get_recent_context(self, limit: int = 5):
+        """Return the most recent memory entries, capped by the limit."""
+        return self.context[-limit:]
