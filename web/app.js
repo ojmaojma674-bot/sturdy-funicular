@@ -6,6 +6,7 @@ const promptInput = document.getElementById('promptInput');
 const messages = document.getElementById('messages');
 const quickPromptBtn = document.getElementById('quickPromptBtn');
 const simulateBtn = document.getElementById('simulateBtn');
+const holoScene = document.querySelector('.hologram-visual');
 
 let deferredPrompt = null;
 
@@ -18,8 +19,10 @@ function setStatus(text, tone = 'normal') {
   };
 
   const dot = document.querySelector('.live-dot');
-  dot.style.background = map[tone] || map.normal;
-  dot.style.boxShadow = `0 0 0 6px ${tone === 'warn' ? 'rgba(255,209,102,0.12)' : 'rgba(124,240,183,0.12)'}`;
+  if (dot) {
+    dot.style.background = map[tone] || map.normal;
+    dot.style.boxShadow = `0 0 0 6px ${tone === 'warn' ? 'rgba(255,209,102,0.12)' : 'rgba(124,240,183,0.12)'}`;
+  }
 }
 
 function updateMode() {
@@ -59,7 +62,46 @@ function generateReply(input) {
     return 'Voice workflow is ready for integration with speech-to-text and TTS, while keeping the app installable in browser mode.';
   }
 
-  return `I’m processing: "${text}". The app is ready for installable PWA packaging, and can be extended with a full AI agent workflow or Android APK release.';
+  if (lower.includes('hologram') || lower.includes('3d') || lower.includes('visual')) {
+    return 'The hologram layer is active: layered rings, scan-grid motion, floating particles, and live AI status overlays are already configured for the futuristic VHOTIEX interface.';
+  }
+
+  return `I’m processing: "${text}". The app is ready for installable PWA packaging, and can be extended with a full AI agent workflow or Android APK release.`;
+}
+
+function setupHologramScene() {
+  if (!holoScene) {
+    return;
+  }
+
+  for (let i = 0; i < 16; i += 1) {
+    const particle = document.createElement('span');
+    const size = 4 + Math.random() * 10;
+    particle.className = 'holo-particle';
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.top = `${Math.random() * 100}%`;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.opacity = String(0.4 + Math.random() * 0.6);
+    particle.style.animationDelay = `${(Math.random() * 4).toFixed(2)}s`;
+    holoScene.appendChild(particle);
+  }
+
+  holoScene.addEventListener('pointermove', (event) => {
+    const rect = holoScene.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width;
+    const py = (event.clientY - rect.top) / rect.height;
+
+    const rotateY = (px - 0.5) * 14;
+    const rotateX = (0.5 - py) * 14;
+    holoScene.style.setProperty('--tilt-x', `${rotateX.toFixed(2)}deg`);
+    holoScene.style.setProperty('--tilt-y', `${rotateY.toFixed(2)}deg`);
+  });
+
+  holoScene.addEventListener('pointerleave', () => {
+    holoScene.style.setProperty('--tilt-x', '0deg');
+    holoScene.style.setProperty('--tilt-y', '0deg');
+  });
 }
 
 if ('serviceWorker' in navigator) {
@@ -121,7 +163,7 @@ composerForm.addEventListener('submit', (event) => {
 });
 
 quickPromptBtn.addEventListener('click', () => {
-  promptInput.value = 'Create an installable AI app package';
+  promptInput.value = 'Create an installable AI app package with hologram visuals';
   promptInput.focus();
   setStatus('Quick launch ready', 'success');
 });
@@ -129,9 +171,10 @@ quickPromptBtn.addEventListener('click', () => {
 simulateBtn.addEventListener('click', () => {
   appendMessage('Run demo workflow and package app experience.', true);
   setTimeout(() => {
-    appendMessage('Demo complete. PWA install flow is active and the app is ready for browser deployment.', false);
+    appendMessage('Demo complete. PWA install flow is active and the hologram interface is ready for deployment.', false);
     setStatus('Demo complete', 'success');
   }, 500);
 });
 
+setupHologramScene();
 updateMode();
