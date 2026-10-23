@@ -1,0 +1,150 @@
+{
+  "system": "VHOTIEX",
+  "description": "Command layer for the full AI swarm and final synthesis engine.",
+  "agents": [
+    {
+      "name": "VHOTIEX",
+      "type": "commander",
+      "role": "Coordinates all agents, gathers context, synthesizes final outputs, and decides escalation or action.",
+      "primary_functions": [
+        "orchestration",
+        "final synthesis",
+        "task routing",
+        "decision making"
+      ],
+      "backup_group": "core"
+    },
+    {
+      "name": "TITAN",
+      "type": "compute",
+      "role": "Handles heavy computational tasks, large-scale processing, and deep workload analysis.",
+      "primary_functions": [
+        "large computations",
+        "data processing",
+        "performance heavy tasks"
+      ],
+      "backup_group": "core"
+    },
+    {
+      "name": "ECHO",
+      "type": "voice",
+      "role": "Processes speech recognition, voice commands, and conversational input streams.",
+      "primary_functions": [
+        "speech recognition",
+        "voice commands",
+        "audio understanding"
+      ],
+      "backup_group": "core"
+    },
+    {
+      "name": "PULSE",
+      "type": "monitoring",
+      "role": "Tracks live state, system health, notifications, and critical events.",
+      "primary_functions": [
+        "real-time status",
+        "monitoring",
+        "notifications"
+      ],
+      "backup_group": "core"
+    },
+    {
+      "name": "SPECTRA",
+      "type": "experience",
+      "role": "Designs UI/UX experiences, holographic visuals, and interface intelligence.",
+      "primary_functions": [
+        "ui design",
+        "ux strategy",
+        "holographic interfaces"
+      ],
+      "backup_group": "core"
+    },
+    {
+      "name": "VECTOR",
+      "type": "execution",
+      "role": "Executes tasks, automates workflows, and manages operational action chains.",
+      "primary_functions": [
+        "task execution",
+        "workflow orchestration",
+        "automation"
+      ],
+      "backup_group": "core"
+    },
+    {
+      "name": "REX",
+      "type": "recovery",
+      "role": "Runs validation, testing, error detection, and recovery flows.",
+      "primary_functions": [
+        "testing",
+        "error recovery",
+        "fault detection"
+      ],
+      "backup_group": "core"
+    },
+    {
+      "name": "QUANTUM",
+      "type": "reasoning",
+      "role": "Performs advanced reasoning, strategic analysis, and multi-step planning.",
+      "primary_functions": [
+        "deep reasoning",
+        "advanced analysis",
+        "strategy"
+      ],
+      "backup_group": "core"
+    },
+    {
+      "name": "PROMETHEUS",
+      "type": "innovation",
+      "role": "Builds new tools, prototypes, and experimental capabilities.",
+      "primary_functions": [
+        "prototype creation",
+        "tool design",
+        "innovation"
+      ],
+      "backup_group": "core"
+    },
+    {
+      "name": "HELIOS",
+      "type": "knowledge",
+      "role": "Handles knowledge synthesis, system analytics, and information insight.",
+      "primary_functions": [
+        "knowledge retrieval",
+        "analytics",
+        "system intelligence"
+      ],
+      "backup_group": "core"
+    },
+    {
+      "name": "FORGE",
+      "type": "engineering",
+      "role": "Handles coding, app development, debugging, and software construction workflows.",
+      "primary_functions": [
+        "software engineering",
+        "debugging",
+        "build management"
+      ],
+      "backup_group": "specialist"
+    },
+    {
+      "name": "AEGIS",
+      "type": "security",
+      "role": "Performs security audits, permission checks, and vulnerability detection.",
+      "primary_functions": [
+        "security review",
+        "permission checks",
+        "vulnerability detection"
+      ],
+      "backup_group": "specialist"
+    },
+    {
+      "name": "EVOLVE",
+      "type": "optimization",
+      "role": "Improves system performance, validates enhancements, and supports iterative optimization.",
+      "primary_functions": [
+        "self-improvement",
+        "performance analysis",
+        "validated improvements"
+      ],
+      "backup_group": "specialist"
+    }
+  ]
+}
