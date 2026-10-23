@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0b0f" />
+    <meta
+      name="description"
+      content="VHOTIEX AI installable web app package. Add to home screen and use like an app."
+    />
+    <title>VHOTIEX AI</title>
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <div class="glow glow-one"></div>
+      <div class="glow glow-two"></div>
+
+      <section class="card">
+        <div class="brand-row">
+          <img src="./assets/icon-192.svg" alt="VHOTIEX AI logo" class="logo" />
+          <div>
+            <p class="eyebrow">AI EXPERIENCE</p>
+            <h1>VHOTIEX AI</h1>
+          </div>
+        </div>
+
+        <p class="subtitle">
+          Futuristic AI assistant with installable web experience, smooth offline support,
+          and device-like behavior.
+        </p>
+
+        <div class="info-grid">
+          <div>
+            <span>Status</span>
+            <strong id="statusText">Ready</strong>
+          </div>
+          <div>
+            <span>Mode</span>
+            <strong id="modeText">Browser</strong>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="installButton" class="primary" hidden>
+            Install App
+          </button>
+          <a class="secondary" href="https://github.com/ojmaojma674-bot" target="_blank" rel="noreferrer">
+            Open GitHub
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

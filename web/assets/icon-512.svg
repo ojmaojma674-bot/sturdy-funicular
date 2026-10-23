@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="VHOTIEX AI icon large">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6ee7f9"/>
+      <stop offset="100%" stop-color="#ff4d6d"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" fill="#0b0b0f"/>
+  <circle cx="256" cy="256" r="170" fill="none" stroke="url(#g1)" stroke-width="28"/>
+  <circle cx="256" cy="256" r="70" fill="url(#g1)" opacity="0.9"/>
+  <path d="M256 82L290 170H222L256 82Z" fill="#6ee7f9" opacity="0.8"/>
+  <path d="M256 430L222 342H290L256 430Z" fill="#ff4d6d" opacity="0.8"/>
+  <path d="M82 256L170 222V290L82 256Z" fill="#6ee7f9" opacity="0.8"/>
+  <path d="M430 256L342 290V222L430 256Z" fill="#ff4d6d" opacity="0.8"/>
+</svg>
