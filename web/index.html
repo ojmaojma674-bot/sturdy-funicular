@@ -6,183 +6,108 @@
     <meta name="theme-color" content="#0b0b0f" />
     <meta
       name="description"
-      content="VHOTIEX AI — installable futuristic AI assistant web app"
+      content="VHOTIEX AI — futuristic holographic assistant interface"
     />
     <title>VHOTIEX AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="manifest" href="./manifest.json" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="app-shell">
-      <aside class="sidebar">
+    <div id="app">
+      <header class="topbar">
         <div class="brand">
-          <img src="./assets/icon-192.svg" alt="VHOTIEX AI logo" />
+          <div class="brand-mark">V</div>
           <div>
-            <span class="eyebrow">VHOTIEX</span>
-            <h2>AI Suite</h2>
+            <b>VHOTIEX</b>
+            <small>AI SUITE</small>
           </div>
         </div>
-
-        <nav class="nav">
-          <button class="nav-item active">Overview</button>
-          <button class="nav-item">Agents</button>
-          <button class="nav-item">Workspace</button>
-          <button class="nav-item">Memory</button>
-          <button class="nav-item">Settings</button>
-        </nav>
-
-        <div class="mini-card">
-          <p>System health</p>
-          <strong>Stable</strong>
-          <div class="progress"><span style="width: 88%"></span></div>
+        <div class="system-status">
+          <span class="status-dot"></span>
+          SYSTEM ONLINE
         </div>
-      </aside>
+      </header>
 
-      <main class="main-panel">
-        <header class="topbar">
-          <div>
-            <p class="eyebrow">AI COMMAND CENTER</p>
-            <h1>VHOTIEX AI</h1>
+      <div class="layout">
+        <section class="hero-panel">
+          <div class="panel-top">
+            <span class="mini-chip">LIVE</span>
+            <span id="agentState">ORACLE</span>
           </div>
 
-          <div class="top-actions">
-            <span id="modeBadge" class="status-badge">Browser</span>
-            <button id="installButton" class="primary hidden">Install App</button>
-          </div>
-        </header>
-
-        <section class="hero-grid">
-          <div class="hero-card">
-            <div class="status-row">
-              <span class="live-dot"></span>
-              <span id="statusText">AI ready</span>
-            </div>
-
-            <h3>Multi-agent intelligence with holographic workflow</h3>
-            <p>
-              Research, code, planning, memory, and voice workflows connected in one
-              premium installable experience.
-            </p>
-
-            <div id="threeRoot" class="three-root" aria-label="Holographic core visualization"></div>
-
-            <div class="hud-panel">
-              <div class="hud-box">
-                <span class="hud-label">MODE</span>
-                <strong id="modeLabel">IDLE</strong>
-              </div>
-              <div class="hud-box">
-                <span class="hud-label">CORE</span>
-                <strong id="coreState">STANDBY</strong>
-              </div>
-              <div class="hud-box">
-                <span class="hud-label">LINK</span>
-                <strong id="connectionLabel">CORE STANDBY</strong>
-              </div>
-              <div class="hud-box">
-                <span class="hud-label">ACTIVITY</span>
-                <strong id="activityValue">12.8%</strong>
-              </div>
-            </div>
-
-            <div class="cta-row">
-              <button class="primary" id="quickPromptBtn">Start session</button>
-              <button class="ghost" id="simulateBtn">Run demo</button>
+          <div class="orb-stage">
+            <div id="threeRoot" aria-label="Holographic core visualization"></div>
+            <div class="core-glow"></div>
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="orbit orbit-three"></div>
+            <div class="scanline"></div>
+            <div class="crosshair crosshair-a"></div>
+            <div class="crosshair crosshair-b"></div>
+            <div class="orb-caption">
+              <span>HOLO CORE</span>
+              <b id="modeLabel">STANDBY</b>
             </div>
           </div>
 
-          <div class="stats-grid">
-            <div class="stat-card">
-              <span>Agents</span>
-              <strong>08</strong>
+          <div class="telemetry">
+            <div>
+              <small>MODE</small>
+              <b id="coreState">IDLE</b>
             </div>
-            <div class="stat-card">
-              <span>Latency</span>
-              <strong>124ms</strong>
+            <div>
+              <small>LINK</small>
+              <b id="connectionLabel">CORE STANDBY</b>
             </div>
-            <div class="stat-card">
-              <span>Memory</span>
-              <strong>92%</strong>
-            </div>
-            <div class="stat-card">
-              <span>Uptime</span>
-              <strong>99.9%</strong>
+            <div>
+              <small>ACTIVITY</small>
+              <b id="activityValue">12.8%</b>
             </div>
           </div>
         </section>
 
-        <section class="workspace-panel">
-          <div class="chat-window">
-            <div class="chat-header">
-              <div>
-                <span class="eyebrow">Session</span>
-                <h3>Agent Console</h3>
-              </div>
-              <div class="agent-select-wrap">
-                <label class="sr-only" for="agentSelect">Agent</label>
-                <select id="agentSelect">
-                  <option value="ORACLE">ORACLE</option>
-                  <option value="NEXUS">NEXUS</option>
-                  <option value="FORGE">FORGE</option>
-                  <option value="SENTINEL">SENTINEL</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="chat-meta">
-              <span class="meta-dot"></span>
-              <span id="agentState">ORACLE</span>
-              <span class="meta-sep">•</span>
-              <span id="voiceState">STANDBY</span>
-            </div>
-
-            <div class="messages" id="chatLog">
-              <div class="message bot">
-                <span class="message-tag">VHOTIEX / ORACLE</span>
-                <p>Welcome back. I’m ready to assist with planning, coding, and analysis.</p>
-              </div>
-              <div class="message user">
-                <span class="message-tag">YOU / COMMAND</span>
-                <p>Build a clean installable web app package.</p>
-              </div>
-            </div>
-
-            <form class="composer" id="chatForm">
-              <input
-                id="promptInput"
-                type="text"
-                placeholder="Ask VHOTIEX AI..."
-                aria-label="Ask VHOTIEX AI"
-              />
-              <button type="button" class="ghost small" id="voiceButton">Voice</button>
-              <button type="submit" class="primary" id="sendButton">Send</button>
-            </form>
+        <aside class="control-panel">
+          <div class="agent-row">
+            <label for="agentSelect">AGENT</label>
+            <select id="agentSelect" aria-label="Select agent">
+              <option value="ORACLE">ORACLE</option>
+              <option value="NEXUS">NEXUS</option>
+              <option value="FORGE">FORGE</option>
+              <option value="SENTINEL">SENTINEL</option>
+            </select>
           </div>
 
-          <aside class="right-panel">
-            <div class="panel-card">
-              <span class="eyebrow">Live tasks</span>
-              <ul>
-                <li>Security review</li>
-                <li>Context memory sync</li>
-                <li>App packaging</li>
-              </ul>
+          <div class="chat-log" id="chatLog">
+            <div class="message bot">
+              <span class="message-tag">VHOTIEX / ORACLE</span>
+              <p>Welcome back. I’m ready to assist with planning, coding, and analysis.</p>
             </div>
+            <div class="message user">
+              <span class="message-tag">YOU / COMMAND</span>
+              <p>Build a clean installable web app package.</p>
+            </div>
+          </div>
 
-            <div class="panel-card">
-              <span class="eyebrow">Recommended</span>
-              <div class="recommendation">
-                <strong>PWA package</strong>
-                <small>Installable for desktop/mobile browsers</small>
-              </div>
-              <div class="recommendation">
-                <strong>APK wrapper</strong>
-                <small>Capacitor ready for Android build</small>
-              </div>
+          <form id="chatForm" class="composer">
+            <textarea id="promptInput" placeholder="Ask VHOTIEX AI..." aria-label="Ask VHOTIEX AI"></textarea>
+            <div class="composer-actions">
+              <button type="button" class="icon-button" id="voiceButton">VOICE</button>
+              <button type="submit" class="send-button" id="sendButton">SEND</button>
             </div>
-          </aside>
-        </section>
-      </main>
+          </form>
+
+          <div class="quick-actions">
+            <button type="button" data-prompt="Summarize the current build status.">SUMMARIZE</button>
+            <button type="button" data-prompt="Draft a secure deployment plan.">DEPLOY</button>
+            <button type="button" data-prompt="Create a clean code review checklist.">REVIEW</button>
+          </div>
+
+          <footer>VHOTIEX / ACTIVE</footer>
+        </aside>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
