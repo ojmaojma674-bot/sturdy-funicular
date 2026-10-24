@@ -64,14 +64,25 @@
               premium installable experience.
             </p>
 
-            <div class="hologram-visual" aria-hidden="true">
-              <div class="holo-grid"></div>
-              <div class="holo-ring ring-large"></div>
-              <div class="holo-ring ring-small"></div>
-              <div class="holo-core"></div>
-              <div class="holo-badge badge-top">SYNC</div>
-              <div class="holo-badge badge-mid">LIVE</div>
-              <div class="holo-badge badge-bottom">AI</div>
+            <div id="threeRoot" class="three-root" aria-label="Holographic core visualization"></div>
+
+            <div class="hud-panel">
+              <div class="hud-box">
+                <span class="hud-label">MODE</span>
+                <strong id="modeLabel">IDLE</strong>
+              </div>
+              <div class="hud-box">
+                <span class="hud-label">CORE</span>
+                <strong id="coreState">STANDBY</strong>
+              </div>
+              <div class="hud-box">
+                <span class="hud-label">LINK</span>
+                <strong id="connectionLabel">CORE STANDBY</strong>
+              </div>
+              <div class="hud-box">
+                <span class="hud-label">ACTIVITY</span>
+                <strong id="activityValue">12.8%</strong>
+              </div>
             </div>
 
             <div class="cta-row">
@@ -107,26 +118,44 @@
                 <span class="eyebrow">Session</span>
                 <h3>Agent Console</h3>
               </div>
-              <button class="ghost small">Voice</button>
+              <div class="agent-select-wrap">
+                <label class="sr-only" for="agentSelect">Agent</label>
+                <select id="agentSelect">
+                  <option value="ORACLE">ORACLE</option>
+                  <option value="NEXUS">NEXUS</option>
+                  <option value="FORGE">FORGE</option>
+                  <option value="SENTINEL">SENTINEL</option>
+                </select>
+              </div>
             </div>
 
-            <div class="messages" id="messages">
+            <div class="chat-meta">
+              <span class="meta-dot"></span>
+              <span id="agentState">ORACLE</span>
+              <span class="meta-sep">•</span>
+              <span id="voiceState">STANDBY</span>
+            </div>
+
+            <div class="messages" id="chatLog">
               <div class="message bot">
+                <span class="message-tag">VHOTIEX / ORACLE</span>
                 <p>Welcome back. I’m ready to assist with planning, coding, and analysis.</p>
               </div>
               <div class="message user">
+                <span class="message-tag">YOU / COMMAND</span>
                 <p>Build a clean installable web app package.</p>
               </div>
             </div>
 
-            <form class="composer" id="composerForm">
+            <form class="composer" id="chatForm">
               <input
                 id="promptInput"
                 type="text"
                 placeholder="Ask VHOTIEX AI..."
                 aria-label="Ask VHOTIEX AI"
               />
-              <button type="submit" class="primary">Send</button>
+              <button type="button" class="ghost small" id="voiceButton">Voice</button>
+              <button type="submit" class="primary" id="sendButton">Send</button>
             </form>
           </div>
 
@@ -156,6 +185,7 @@
       </main>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
