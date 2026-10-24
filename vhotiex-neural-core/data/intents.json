@@ -1,0 +1,14 @@
+{
+  "intents": [
+    "greeting",
+    "status_check",
+    "task_planning",
+    "coding_help",
+    "knowledge_lookup",
+    "creative_writing",
+    "summarization",
+    "analysis",
+    "travel",
+    "security"
+  ]
+}
